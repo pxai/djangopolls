@@ -17,3 +17,9 @@ Running the app
  python manage.py runserver
 ```
 Open site at http://localhost:8000
+
+## Don't forget to add db stuff
+```shell
+python manage.py migrate
+
+```
