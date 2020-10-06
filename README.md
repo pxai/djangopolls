@@ -45,9 +45,10 @@ To check for problems:
 ## The shell
 
 Great to try stuff
-```
+```shell
 python manage.py shell
-
+```
+```python
 >>>
 >>> Question.objects.all()
 <QuerySet []>
@@ -67,4 +68,58 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 >>> q.save()
 
 >>> Question.objects.all()
+```
+### Querying
+```python
+>>> Question.objects.filter(id=1)
+<QuerySet [<Question: What's up?>]>
+>>> Question.objects.filter(question_text__startswith='What')
+<QuerySet [<Question: What's up?>]>
+
+>>> from django.utils import timezone
+>>> current_year = timezone.now().year
+>>> Question.objects.get(pub_date__year=current_year)
+<Question: What's up?>
+>>> Question.objects.get(id=2)
+>>> Question.objects.get(pk=1)  # primary key
+
+>>> q.choice_set.all()
+<QuerySet []>
+
+# Create three choices.
+>>> q.choice_set.create(choice_text='Not much', votes=0)
+>>> q.choice_set.all()
+<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+>>> q.choice_set.count()
+3
+
+>>> Choice.objects.filter(question__pub_date__year=current_year)
+<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+
+
+>>> c = q.choice_set.filter(choice_text__startswith='Just hacking')
+>>> c.delete()
+```
+
+
+## Django admin
+```shell
+python manage.py createsuperuser
+```
+Then:
+```shell
+python manage.py runserver
+```
+And go to admin
+
+### adding Poll to admin
+
+Inside `polls/admin.py`:
+
+```python
+from django.contrib import admin
+
+from .models import Question
+
+admin.site.register(Question)
 ```
