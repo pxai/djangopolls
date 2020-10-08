@@ -1,6 +1,7 @@
 from . import views
 from django.urls import path
 
+app_name = 'polls'  # now you have to add `polls:` to links
 urlpatterns = [
     path('about', views.about, name='about'),
     path('', views.index, name='index'),
