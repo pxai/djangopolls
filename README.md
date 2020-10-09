@@ -1,5 +1,6 @@
-# Guraso django app
+# Sample django apps
 
+Reminders:
 ## Django setup
 Install django with:
 
