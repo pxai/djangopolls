@@ -147,4 +147,8 @@ Not Found: /
 >>> from django.urls import reverse
 >>> response = client.get(reverse('polls:index'))
 >>> response.status_code
+## to get content:
+>>> response.content
+b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#x27;s up?</a></li>\n    \n    </ul>\n\n'
+>>> response.context['latest_question_list']
 ```
