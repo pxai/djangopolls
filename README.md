@@ -1,4 +1,5 @@
 # Sample django apps
+[![Build Status](https://travis-ci.org/pxai/djangopolls.svg?branch=master)](https://travis-ci.org/pxai/djangopolls)
 
 Reminders:
 ## Django setup

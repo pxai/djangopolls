@@ -3,4 +3,4 @@ env:
   - DJANGO_VERSION=3.0.1
 install:
   - pip install -q Django==$DJANGO_VERSION
-script: python3 manage.py test
+script: python3 manage.py test polls
