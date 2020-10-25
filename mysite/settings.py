@@ -51,11 +51,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
-
+ # Changed DIRS for custom admin templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR + '/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

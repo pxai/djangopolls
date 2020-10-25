@@ -6,7 +6,12 @@ Reminders:
 Install django with:
 
 ```shell
-python -m pip install Django
+python3 -m pip install Django
+```
+
+Where are django files?
+```shell
+python3 -c "import django; print(django.__path__)"
 ```
 
 ## Create the app
@@ -16,39 +21,39 @@ python -m pip install Django
 
 Running the app
 ```shell
- python manage.py runserver
+python3 manage.py runserver
 ```
 Open site at http://localhost:8000
 
 ## Don't forget to add db stuff
 ```shell
-python manage.py migrate
+python3 manage.py migrate
 
 ```
 
 ### When adding tables
 
 ```shell
-python manage.py makemigrations polls
-python manage.py migrate
+python3 manage.py makemigrations polls
+python3 manage.py migrate
 ```
 
 Try this to see how it does it:
 
 ```shell
-python manage.py sqlmigrate polls 0001
+python3 manage.py sqlmigrate polls 0001
 ```
 
 To check for problems:
 ```shell
- python manage.py check;
+ python3 manage.py check;
  ```
 
 ## The shell
 
 Great to try stuff
 ```shell
-python manage.py shell
+python3 manage.py shell
 ```
 ```python
 >>>
@@ -106,11 +111,11 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 
 ## Django admin
 ```shell
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
 Then:
 ```shell
-python manage.py runserver
+python3 manage.py runserver
 ```
 And go to admin
 
@@ -130,7 +135,7 @@ admin.site.register(Question)
 ### Setting up tests for views:
 From the shell:
 ```shell
-python manage.py shell
+python3 manage.py shell
 ```
 ```python
 from django.test.utils import setup_test_environment
@@ -152,4 +157,16 @@ Not Found: /
 >>> response.content
 b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#x27;s up?</a></li>\n    \n    </ul>\n\n'
 >>> response.context['latest_question_list']
+```
+
+## Customize admin templates
+Find the location of django:
+
+```shell
+python3 -c "import django; print(django.__path__)"
+```
+
+Then
+```shell
+cp django/contrib/admin/templates/base_site.html templates/admin
 ```
