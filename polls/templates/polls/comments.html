@@ -1,0 +1,5 @@
+<h4>Comments:</h4>
+{% for comment in question.comment_set.all %}
+    <div>{{ forloop.counter }}.</div>
+    <p>{{ comment.comment_text }}</p><br>
+{% endfor %}
