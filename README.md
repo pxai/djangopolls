@@ -170,3 +170,17 @@ Then
 ```shell
 cp django/contrib/admin/templates/base_site.html templates/admin
 ```
+# USE_I18N
+Maybe you need to install gettext, e.g.:
+```shell
+ brew link gettext --force
+```
+Then you can create a file with
+```shell
+django-admin makemessages
+```
+
+And compile trans with;:
+```shell
+django-admin compilemessages
+```

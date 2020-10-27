@@ -6,6 +6,7 @@ from .models import Question, Choice
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -34,7 +35,9 @@ def index_long(request):
     return HttpResponse(template.render(context, request))
 
 def about(request):
-    return HttpResponse("Polls by Pello Altadill")
+    output = _("Welcome to my site.")
+    dateoutput = _('Today is %(month)s %(day)s.') % {'month': 10, 'day': 5}
+    return HttpResponse(output + dateoutput + "-  Polls app by Pello Altadill")
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
