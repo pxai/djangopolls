@@ -14,7 +14,7 @@ Where are django files?
 python3 -c "import django; print(django.__path__)"
 ```
 
-## Create the app
+## Create a project
 ```shell
  django-admin startproject project-name
 ```
@@ -24,6 +24,11 @@ Running the app
 python3 manage.py runserver
 ```
 Open site at http://localhost:8000
+
+## create APP
+```shell
+python3 manage.py startapp appName
+```
 
 ## Don't forget to add db stuff
 ```shell
