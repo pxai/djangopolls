@@ -1,0 +1,19 @@
+{% extends "story/base.html" %}
+
+{% block title %}My Stories{% endblock %}
+
+{% block content %}
+  <h1>My Blog</h1>
+  {% for story in stories %}
+    <h2>
+      <a href="{{ post.get_absolute_url }}">
+        {{ story.title }}
+      </a>
+    </h2>
+    <p class="date">
+      Published {{ story.publish }} by {{ story.author }}
+    </p>
+    {{ story.body|truncatewords:30|linebreaks }}
+  {% endfor %}
+  {% include "pagination.html" with page=page_obj %}
+{% endblock %}
