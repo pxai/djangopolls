@@ -36,3 +36,26 @@ class StoryListView(ListView):
     context_object_name = 'stories'
     paginate_by = 3
     template_name = 'stories/story/list.html'
+
+def story_share(request, story_id):
+    story = get_object_or_404(Story, id=story_id, status='published')
+    sent = False
+
+    if request.method == 'POST':
+        # Form was submitted
+        form = EmailStoryForm(request.POST)
+        if form.is_valid():
+            # Form fields passed validation
+            cd = form.cleaned_data
+            story_url = request.build_absolute_uri(story.get_absolute_url())
+            subject = f"{cd['name']} recommends you read {story.title}"
+            message = f"Read {story.title} at {story_url}\n\n" \
+                      f"{cd['name']}\'s comments: {cd['comments']}"
+            send_mail(subject, message, 'admin@myblog.com', [cd['to']])
+            sent = True
+
+    else:
+        form = EmailStoryForm()
+    return render(request, 'stories/story/share.html', {'story': story,
+                                                    'form': form,
+                                                    'sent': sent})
