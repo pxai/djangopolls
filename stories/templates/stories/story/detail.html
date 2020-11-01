@@ -8,4 +8,9 @@
     Published {{ story.publish }} by {{ story.author }}
   </p>
   {{ story.body|linebreaks }}
+  <p>
+  <a href="{% url "blog:post_share" post.id %}">
+    Share this post
+  </a>
+</p>
 {% endblock %}

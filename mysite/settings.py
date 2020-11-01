@@ -126,3 +126,15 @@ STATIC_URL = '/static/'
 #LOCALE_PATHS = [
 #    '/home/www/project/common_files/locale',
 #]
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Check with
+# > from django.core.mail import send_mail
+# >>> send_mail('Django mail', 'This e-mail was sent with Django.', 'your_
+# account@gmail.com', ['your_account@gmail.com'], fail_silently=False)
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
