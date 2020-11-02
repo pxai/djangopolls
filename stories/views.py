@@ -22,13 +22,43 @@ def story_list(request):
 
 def story_detail(request, year, month, day, story):
     story = get_object_or_404(Story, slug=story,
-                                   status='live',
+                                   status='published',
                                    publish__year=year,
                                    publish__month=month,
                                    publish__day=day)
+
+    # List of active comments for this story
+    comments = story.comments.filter(active=True)
+
+    new_comment = None
+
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.story = story
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
+    # List of similar posts
+    story_tags_ids = story.tags.values_list('id', flat=True)
+    similar_stories = Story.published.filter(tags__in=story_tags_ids)\
+                                  .exclude(id=post.id)
+    similar_stories = similar_stories.annotate(same_tags=Count('tags'))\
+                                .order_by('-same_tags','-publish')[:4]
+
     return render(request,
                   'stories/story/detail.html',
-                  {'story': story})
+                  {'story': story,
+                   'comments': comments,
+                   'new_comment': new_comment,
+                   'comment_form': comment_form,
+                   'similar_stories': similar_stories})
 
 
 class StoryListView(ListView):
