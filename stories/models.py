@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from taggit.managers import TaggableManager
 
 class LiveManager(models.Manager):
     def get_queryset(self):
@@ -31,7 +31,8 @@ class Story(models.Model):
 
     stories = models.Manager() # The default manager.
     liveStories = LiveManager() # Our custom manager.
-
+    tags = TaggableManager()
+    
     class Meta:
         ordering = ('-publish',)
 

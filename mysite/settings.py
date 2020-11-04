@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'taggit',
 ]
+## TAGS:
+# >>> from blog.models import Post
+# >>> post = Post.objects.get(id=1)
+# >>> post.tags.add('music', 'jazz', 'django')
+# >>> post.tags.all()
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
