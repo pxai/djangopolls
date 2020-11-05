@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .models import Story
-
+from .models import Story, Comment
+from .forms import EmailStoryForm, CommentForm
+from taggit.models import Tag
 
 def story_list(request):
     object_list = Story.liveStories.all()

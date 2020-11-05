@@ -1,7 +1,7 @@
 from django import forms
 from .models import Comment
 
-class EmailPostForm(forms.Form):
+class EmailStoryForm(forms.Form):
     name = forms.CharField(max_length=25)
     email = forms.EmailField()
     to = forms.EmailField()

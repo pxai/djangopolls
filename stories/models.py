@@ -32,7 +32,7 @@ class Story(models.Model):
     stories = models.Manager() # The default manager.
     liveStories = LiveManager() # Our custom manager.
     tags = TaggableManager()
-    
+
     class Meta:
         ordering = ('-publish',)
 
@@ -40,7 +40,7 @@ class Story(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog:story_detail',
+        return reverse('stories:story_detail',
                        args=[self.publish.year,
                              self.publish.month,
                              self.publish.day, self.slug])

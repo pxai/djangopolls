@@ -6,10 +6,19 @@
   <h1>My Stories</h1>
   {% for story in stories %}
     <h2>
-      <a href="{{ post.get_absolute_url }}">
+      <a href="{{ story.get_absolute_url }}">
         {{ story.title }}
       </a>
     </h2>
+    <p class="tags">
+    Tags:
+    {% for tag in story.tags.all %}
+      <a href="{% url "stories:story_list_by_tag" tag.slug %}">
+        {{ tag.name }}
+      </a>
+      {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
     <p class="date">
       Published {{ story.publish }} by {{ story.author }}
     </p>
