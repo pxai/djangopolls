@@ -1,9 +1,23 @@
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail
 from django.views.generic import ListView
 from .models import Story, Comment
-from .forms import EmailStoryForm, CommentForm
+# from .forms import EmailStoryForm, CommentForm
+from django import forms
 from taggit.models import Tag
+
+class EmailStoryForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False, widget=forms.Textarea)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'email', 'body')
 
 def story_list(request):
     object_list = Story.liveStories.all()
@@ -34,22 +48,19 @@ def story_detail(request, year, month, day, story):
     new_comment = None
 
     if request.method == 'POST':
-        # A comment was posted
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
             new_comment.story = story
-            # Save the comment to the database
             new_comment.save()
     else:
         comment_form = CommentForm()
 
-    # List of similar posts
+    # List of similar stories
     story_tags_ids = story.tags.values_list('id', flat=True)
     similar_stories = Story.published.filter(tags__in=story_tags_ids)\
-                                  .exclude(id=post.id)
+                                  .exclude(id=story.id)
     similar_stories = similar_stories.annotate(same_tags=Count('tags'))\
                                 .order_by('-same_tags','-publish')[:4]
 

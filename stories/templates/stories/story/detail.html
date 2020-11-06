@@ -1,6 +1,6 @@
 {% extends "stories/base.html" %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ story.title }}{% endblock %}
 
 {% block content %}
   <h1>{{ story.title }}</h1>
@@ -9,8 +9,8 @@
   </p>
   {{ story.body|linebreaks }}
   <p>
-  <a href="{% url "blog:post_share" post.id %}">
-    Share this post
+  <a href="{% url "stories:story_share" story.id %}">
+    Share this story
   </a>
 </p>
 <h2>Similar Stories</h2>
