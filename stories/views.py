@@ -37,7 +37,7 @@ def story_list(request):
 
 def story_detail(request, year, month, day, story):
     story = get_object_or_404(Story, slug=story,
-                                   status='published',
+                                   status='live',
                                    publish__year=year,
                                    publish__month=month,
                                    publish__day=day)
@@ -59,7 +59,7 @@ def story_detail(request, year, month, day, story):
 
     # List of similar stories
     story_tags_ids = story.tags.values_list('id', flat=True)
-    similar_stories = Story.published.filter(tags__in=story_tags_ids)\
+    similar_stories = Story.liveStories.filter(tags__in=story_tags_ids)\
                                   .exclude(id=story.id)
     similar_stories = similar_stories.annotate(same_tags=Count('tags'))\
                                 .order_by('-same_tags','-publish')[:4]
@@ -80,7 +80,7 @@ class StoryListView(ListView):
     template_name = 'stories/story/list.html'
 
 def story_share(request, story_id):
-    story = get_object_or_404(Story, id=story_id, status='published')
+    story = get_object_or_404(Story, id=story_id, status='live')
     sent = False
 
     if request.method == 'POST':
