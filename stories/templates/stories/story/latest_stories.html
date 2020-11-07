@@ -1,0 +1,7 @@
+<ul>
+  {% for story in latest_stories %}
+    <li>
+      <a href="{{ story.get_absolute_url }}">{{ story.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
