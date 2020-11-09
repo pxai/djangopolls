@@ -22,7 +22,7 @@
     <p class="date">
       Published {{ story.publish }} by {{ story.author }}
     </p>
-    {{ story.body|truncatewords:30|linebreaks }}
+    {{ story.body|markdown|truncatewords_html:30 }}
   {% endfor %}
   {% include "pagination.html" with page=page_obj %}
 {% endblock %}

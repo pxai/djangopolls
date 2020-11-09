@@ -20,3 +20,7 @@ def get_most_commented_stories(count=5):
     return Story.liveStories.annotate(
                total_comments=Count('comments')
            ).order_by('-total_comments')[:count]
+
+@register.filter(name='markdown')
+def markdown_format(text):
+    return mark_safe(markdown.markdown(text))
