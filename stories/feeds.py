@@ -3,7 +3,6 @@ from django.template.defaultfilters import truncatewords
 from django.urls import reverse_lazy
 from .models import Story
 
-
 class LatestStoriesFeed(Feed):
     title = 'My Stories'
     link = reverse_lazy('stories:story_list')
