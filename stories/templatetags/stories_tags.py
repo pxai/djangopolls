@@ -11,7 +11,7 @@ def total_stories():
     return Story.liveStories.count()
 
 @register.inclusion_tag('stories/story/latest_stories.html')
-def show_latest_posts(count=5):
+def show_latest_stories(count=5):
     latest_stories = Story.liveStories.order_by('-publish')[:count]
     return {'latest_stories': latest_stories}
 
